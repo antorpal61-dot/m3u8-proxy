@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>M3U8 Proxy Player</title>
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+</head>
+<body>
+<h2 style="text-align:center;">M3U8 Video Player</h2>
+<div id="video-container" style="width:100%;max-width:800px;margin:auto;">
+  <video id="player" controls style="width:100%;height:auto;"></video>
+</div>
+
+<script>
+  const STREAM_URL = "http://103.101.197.10:8989/M_Movies/index.m3u8"; // তোমার লিংক
+  const video = document.getElementById("player");
+
+  if(Hls.isSupported()){
+      const hls = new Hls();
+      hls.loadSource(STREAM_URL);
+      hls.attachMedia(video);
+      video.play();
+  } else if(video.canPlayType('application/vnd.apple.mpegurl')){
+      video.src = STREAM_URL;
+      video.play();
+  } else {
+      document.getElementById("video-container").innerHTML = "<p style='color:red;text-align:center;'>Your browser does not support HLS.</p>";
+  }
+</script>
+</body>
+</html>
